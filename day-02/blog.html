@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Hướng dẫn Todo List App - HTML, CSS, JavaScript</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css"
+    />
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        line-height: 1.6;
+        margin: 40px auto;
+        max-width: 800px;
+        padding: 0 20px;
+      }
+      pre {
+        border-radius: 8px;
+        overflow-x: auto;
+      }
+      code {
+        background-color: #eee;
+        padding: 2px 4px;
+        border-radius: 4px;
+      }
+      h1,
+      h2,
+      h3 {
+        color: #2c3e50;
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <nav>
+        <a href="../index.html">Home</a>
+        <span>/</span>
+        <a href="./index.html">Day 02</a>
+        <span>/</span>
+        <span>Exercise 03</span>
+      </nav>
+    </header>
+
+    <h1>📝 Hướng dẫn tạo ứng dụng Todo List bằng HTML, CSS và JavaScript</h1>
+
+    <h2>Giới thiệu</h2>
+    <p>
+      Todo List là một ứng dụng nhỏ nhưng rất hữu ích để ghi nhớ và theo dõi các
+      công việc cần làm. Trong bài viết này, bạn sẽ học cách tạo một ứng dụng
+      như vậy chỉ với <code>HTML</code>, <code>CSS</code> và
+      <code>JavaScript</code> — không cần thư viện hay framework nào cả.
+    </p>
+
+    <h2>🎯 Mục tiêu</h2>
+    <ul>
+      <li>Thêm công việc mới</li>
+      <li>Hiển thị danh sách các công việc</li>
+      <li>Xóa công việc</li>
+    </ul>
+
+    <h2>🧱 Bước 1: Tạo cấu trúc HTML</h2>
+    <p>
+      Chúng ta sẽ bắt đầu bằng cách xây dựng phần giao diện (UI) cơ bản với
+      <code>HTML</code>.
+    </p>
+    <pre><code class="language-html">&lt;!DOCTYPE html&gt;
+&lt;html lang="en"&gt;
+&lt;head&gt;
+  &lt;meta charset="UTF-8" /&gt;
+  &lt;meta name="viewport" content="width=device-width, initial-scale=1.0" /&gt;
+  &lt;title&gt;Todo List App&lt;/title&gt;
+  &lt;link rel="stylesheet" href="style.css" /&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  &lt;div class="todo-container"&gt;
+    &lt;h1&gt;Todo List&lt;/h1&gt;
+    &lt;div class="input-section"&gt;
+      &lt;input type="text" id="todo-input" placeholder="Nhập công việc..." /&gt;
+      &lt;button id="add-button"&gt;Thêm&lt;/button&gt;
+    &lt;/div&gt;
+    &lt;ul id="todo-list"&gt;&lt;/ul&gt;
+  &lt;/div&gt;
+
+  &lt;script src="script.js"&gt;&lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+    <p>
+      👉 <strong>Giải thích:</strong> Phần tử <code>input</code> để người dùng
+      nhập công việc, <code>button</code> để thêm công việc, <code>ul</code> sẽ
+      chứa danh sách <code>li</code> các công việc.
+    </p>
+
+    <h2>🎨 Bước 2: Thêm CSS để giao diện dễ nhìn</h2>
+    <p>Tạo file <code>style.css</code> và dán vào đoạn mã sau:</p>
+    <pre><code class="language-css">body {
+  font-family: Arial, sans-serif;
+  background-color: #f4f4f4;
+  display: flex;
+  justify-content: center;
+  margin-top: 50px;
+}
+
+.todo-container {
+  background: white;
+  padding: 20px 30px;
+  border-radius: 10px;
+  width: 300px;
+  box-shadow: 0 5px 10px rgba(0,0,0,0.1);
+}
+
+h1 {
+  text-align: center;
+}
+
+.input-section {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+#todo-input {
+  flex: 1;
+  padding: 8px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+}
+
+#add-button {
+  padding: 8px 12px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+#add-button:hover {
+  background-color: #0056b3;
+}
+
+#todo-list {
+  list-style: none;
+  padding: 0;
+}
+
+#todo-list li {
+  display: flex;
+  justify-content: space-between;
+  background: #f8f8f8;
+  padding: 10px;
+  margin-bottom: 8px;
+  border-radius: 5px;
+}
+
+.delete-button {
+  background-color: red;
+  color: white;
+  border: none;
+  padding: 3px 8px;
+  border-radius: 3px;
+  cursor: pointer;
+}</code></pre>
+    <p>
+      👉 <strong>Giải thích:</strong> Giao diện đẹp và rõ ràng hơn, các phần tử
+      <code>div</code>, <code>input</code>, <code>button</code> và
+      <code>ul</code> được căn chỉnh hợp lý.
+    </p>
+
+    <h2>⚙️ Bước 3: Viết JavaScript để xử lý chức năng</h2>
+    <p>Tạo file <code>script.js</code> và thêm đoạn mã sau:</p>
+    <pre><code class="language-javascript">const addButton = document.getElementById('add-button');
+const input = document.getElementById('todo-input');
+const list = document.getElementById('todo-list');
+
+addButton.addEventListener('click', function () {
+  const taskText = input.value.trim();
+
+  if (taskText === '') {
+    alert('Bạn chưa nhập công việc!');
+    return;
+  }
+
+  const listItem = document.createElement('li');
+  listItem.textContent = taskText;
+
+  const deleteBtn = document.createElement('button');
+  deleteBtn.textContent = 'Xóa';
+  deleteBtn.className = 'delete-button';
+  deleteBtn.onclick = function () {
+    list.removeChild(listItem);
+  };
+
+  listItem.appendChild(deleteBtn);
+  list.appendChild(listItem);
+
+  input.value = '';
+});</code></pre>
+    <p>
+      👉 <strong>Giải thích:</strong> Xử lý sự kiện khi nhấn
+      <code>button</code>, tạo mới phần tử <code>li</code> chứa nội dung công
+      việc và nút <code>Xóa</code>. Khi nhấn nút xóa, <code>li</code> tương ứng
+      sẽ bị loại bỏ khỏi <code>ul</code>.
+    </p>
+
+    <h2>✅ Kết quả cuối cùng</h2>
+    <p>
+      Ứng dụng Todo List đã có thể thêm, hiển thị và xóa công việc. Bạn có thể
+      nhập công việc vào ô input, nhấn nút "Thêm" để thêm vào danh sách, và bấm
+      "Xóa" để loại bỏ công việc đã hoàn thành.
+    </p>
+
+    <h2>🧠 Gợi ý nâng cao</h2>
+    <ul>
+      <li>Lưu danh sách công việc bằng <code>localStorage</code></li>
+      <li>Thêm chức năng đánh dấu "Đã hoàn thành"</li>
+      <li>Thêm phím tắt Enter để thêm công việc</li>
+    </ul>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-css.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-javascript.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-markup.min.js"></script>
+  </body>
+</html>
