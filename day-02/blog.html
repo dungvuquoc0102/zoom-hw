@@ -65,7 +65,9 @@
       Chúng ta sẽ bắt đầu bằng cách xây dựng phần giao diện (UI) cơ bản với
       <code>HTML</code>.
     </p>
-    <pre><code class="language-html">&lt;!DOCTYPE html&gt;
+    <pre>
+      <code class="language-html">
+&lt;!DOCTYPE html&gt;
 &lt;html lang="en"&gt;
 &lt;head&gt;
   &lt;meta charset="UTF-8" /&gt;
@@ -85,7 +87,9 @@
 
   &lt;script src="script.js"&gt;&lt;/script&gt;
 &lt;/body&gt;
-&lt;/html&gt;</code></pre>
+&lt;/html&gt;
+      </code>
+    </pre>
     <p>
       👉 <strong>Giải thích:</strong> Phần tử <code>input</code> để người dùng
       nhập công việc, <code>button</code> để thêm công việc, <code>ul</code> sẽ
@@ -94,7 +98,9 @@
 
     <h2>🎨 Bước 2: Thêm CSS để giao diện dễ nhìn</h2>
     <p>Tạo file <code>style.css</code> và dán vào đoạn mã sau:</p>
-    <pre><code class="language-css">body {
+    <pre>
+      <code class="language-css">
+body {
   font-family: Arial, sans-serif;
   background-color: #f4f4f4;
   display: flex;
@@ -161,7 +167,9 @@ h1 {
   padding: 3px 8px;
   border-radius: 3px;
   cursor: pointer;
-}</code></pre>
+}
+      </code>
+    </pre>
     <p>
       👉 <strong>Giải thích:</strong> Giao diện đẹp và rõ ràng hơn, các phần tử
       <code>div</code>, <code>input</code>, <code>button</code> và
@@ -170,7 +178,9 @@ h1 {
 
     <h2>⚙️ Bước 3: Viết JavaScript để xử lý chức năng</h2>
     <p>Tạo file <code>script.js</code> và thêm đoạn mã sau:</p>
-    <pre><code class="language-javascript">const addButton = document.getElementById('add-button');
+    <pre>
+      <code class="language-javascript">
+const addButton = document.getElementById('add-button');
 const input = document.getElementById('todo-input');
 const list = document.getElementById('todo-list');
 
@@ -196,7 +206,9 @@ addButton.addEventListener('click', function () {
   list.appendChild(listItem);
 
   input.value = '';
-});</code></pre>
+});
+      </code>
+    </pre>
     <p>
       👉 <strong>Giải thích:</strong> Xử lý sự kiện khi nhấn
       <code>button</code>, tạo mới phần tử <code>li</code> chứa nội dung công
