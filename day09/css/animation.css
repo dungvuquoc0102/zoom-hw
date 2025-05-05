@@ -1,0 +1,87 @@
+.container {
+  display: flex;
+  width: fit-content;
+  margin: 100px auto;
+}
+
+.box {
+  position: relative;
+
+  height: 80px;
+  padding: 0 7px;
+}
+
+.dot {
+  width: 20px;
+  aspect-ratio: 1 / 1;
+  background: black;
+  border-radius: 50%;
+  animation: move 2s cubic-bezier(0.445, 0.05, 0.55, 0.95) infinite;
+}
+
+.dot-reverse {
+  position: absolute;
+  bottom: 0;
+  width: 20px;
+  aspect-ratio: 1 / 1;
+  background: black;
+  border-radius: 50%;
+  animation: move-reverse 2s cubic-bezier(0.445, 0.05, 0.55, 0.95) infinite;
+}
+
+@keyframes move {
+  0% {
+  }
+
+  50% {
+    scale: 1.2;
+  }
+
+  100% {
+    translate: 0 60px;
+  }
+}
+
+@keyframes move-reverse {
+  0% {
+  }
+
+  50% {
+    opacity: 0;
+    scale: 0.5;
+  }
+
+  100% {
+    translate: 0 -60px;
+  }
+}
+
+.dot-2,
+.dot-reverse-2 {
+  animation-delay: 0.3s;
+}
+
+.dot-3,
+.dot-reverse-3 {
+  animation-delay: 0.6s;
+}
+
+.dot-4,
+.dot-reverse-4 {
+  animation-delay: 0.9s;
+}
+
+.dot-5,
+.dot-reverse-5 {
+  animation-delay: 1.2s;
+}
+
+.dot-6,
+.dot-reverse-6 {
+  animation-delay: 1.5s;
+}
+
+.dot-7,
+.dot-reverse-7 {
+  animation-delay: 1.8s;
+}
