@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Index</title>
+  </head>
+  <body>
+    Parent
+    <button class="btn-open-popup">Open popup</button>
+    <script>
+      const btnOpenPopup = document.querySelector(".btn-open-popup");
+      btnOpenPopup.addEventListener("click", function () {
+        const childWindow = window.open(
+          `${location.protocol}//${location.host}/zoom-hw/day00/popup.html`
+        );
+        setTimeout(() => {
+          childWindow.postMessage(
+            "Hello popup",
+            `${location.protocol}//${location.host}/zoom-hw/day00/popup.html`
+          );
+        }, 2000);
+      });
+    </script>
+  </body>
+</html>
