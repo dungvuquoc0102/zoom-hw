@@ -9,9 +9,11 @@
     Popup
     <script>
       window.addEventListener("message", function (event) {
-        console.log(event);
-        if (event.origin !== `${location.protocol}//${location.host}`) return;
-        console.log("Đã nhận được message từ index");
+        console.log(event.data);
+        if (typeof event.data === "string") {
+          //${location.host}`) return;
+          console.log("Đã nhận được message từ index");
+        }
       });
     </script>
   </body>
