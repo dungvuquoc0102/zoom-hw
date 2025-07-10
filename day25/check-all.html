@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Check All</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      .container {
+        max-width: 1170px;
+        width: 100%;
+        margin: 0 auto;
+      }
+
+      ul {
+        list-style: none;
+      }
+
+      li {
+        display: flex;
+        border: 1px solid #ccc;
+        gap: 10px;
+        border-bottom: none;
+        padding: 10px;
+      }
+
+      li:last-child {
+        border-bottom: 1px solid #ccc;
+      }
+
+      .select-all {
+        display: flex;
+        gap: 10px;
+        padding: 10px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="wrapper">
+      <div class="inner">
+        <div class="container">
+          <h1>Check All</h1>
+          <h2>Products</h2>
+          <div class="select-all">
+            <input type="checkbox" class="input-select-all" />
+            <div>Select all</div>
+          </div>
+          <ul>
+            <li>
+              <input type="checkbox" />
+              <div>Product 1</div>
+            </li>
+            <li>
+              <input type="checkbox" />
+              <div>Product 2</div>
+            </li>
+            <li>
+              <input type="checkbox" />
+              <div>Product 3</div>
+            </li>
+            <li>
+              <input type="checkbox" />
+              <div>Product 4</div>
+            </li>
+            <li>
+              <input type="checkbox" />
+              <div>Product 5</div>
+            </li>
+            <li>
+              <input type="checkbox" />
+              <div>Product 6</div>
+            </li>
+            <li>
+              <input type="checkbox" />
+              <div>Product 7</div>
+            </li>
+            <li>
+              <input type="checkbox" />
+              <div>Product 8</div>
+            </li>
+            <li>
+              <input type="checkbox" />
+              <div>Product 9</div>
+            </li>
+            <li>
+              <input type="checkbox" />
+              <div>Product 10</div>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <script>
+      const inputSelectAll = document.querySelector(".input-select-all");
+      const inputList = document.querySelectorAll("ul > li input");
+      let count = 0;
+      inputSelectAll.onclick = () => {
+        console.log(inputSelectAll.checked);
+        if (inputSelectAll.checked) {
+          inputList.forEach((item) => (item.checked = true));
+          count = inputList.length;
+        } else {
+          inputList.forEach((item) => (item.checked = false));
+          count = 0;
+        }
+      };
+
+      inputList.forEach((item) => {
+        item.onclick = () => {
+          if (item.checked) {
+            count++;
+          } else {
+            count--;
+          }
+          if (count < inputList.length && count > 0) {
+            console.log(count);
+            inputSelectAll.checked = false;
+            inputSelectAll.indeterminate = true;
+          } else {
+            inputSelectAll.indeterminate = false;
+            if (count === inputList.length) {
+              inputSelectAll.checked = true;
+            } else {
+              inputSelectAll.checked = false;
+            }
+          }
+        };
+      });
+    </script>
+  </body>
+</html>
