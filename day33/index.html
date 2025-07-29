@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css" />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css"
+    />
+    <script
+      type="text/javascript"
+      src="https://cdn.jsdelivr.net/npm/toastify-js"
+    ></script>
+    <script src="./js/script.js" type="module"></script>
+  </head>
+  <body>
+    <h1 class="heading">My modal collection</h1>
+    <div class="main">
+      <button class="btn btn-primary open-modal" id="modal-1">
+        Open level 1 modal
+      </button>
+    </div>
+    <my-modal class="modal" id="modal-1" hidden>
+      <div slot="header" class="header">
+        <h2 class="title">Level 1 modal</h2>
+        <span class="icon close-modal">&times;</span>
+      </div>
+      <div class="content">
+        <p>Content 1</p>
+        <p>Content 2</p>
+        <p>Content 3</p>
+        <!-- Modal 2 -->
+        <div>
+          <button class="btn btn-primary open-modal" id="modal-2">
+            Open level 2 modal
+          </button>
+        </div>
+        <!-- End modal 2 -->
+      </div>
+      <div slot="footer" class="footer">
+        <button class="btn btn-danger close-modal">Cancel</button>
+      </div>
+    </my-modal>
+    <my-modal class="modal" id="modal-2" hidden>
+      <div slot="header" class="header">
+        <h2 class="title">Level 2 modal</h2>
+        <span class="icon close-modal">&times;</span>
+      </div>
+      <div class="content">
+        <p>Content 1</p>
+        <p>Content 2</p>
+        <!-- Modal 3 -->
+        <div>
+          <button class="btn btn-primary open-modal" id="modal-3">
+            Open level 3 modal
+          </button>
+        </div>
+        <!-- End modal 3 -->
+      </div>
+      <div slot="footer" class="footer">
+        <button class="btn btn-danger close-modal">Cancel</button>
+      </div>
+    </my-modal>
+    <my-modal class="modal" id="modal-3" hidden>
+      <div slot="header" class="header">
+        <h2 class="title">Level 3 modal</h2>
+        <span class="icon close-modal">&times;</span>
+      </div>
+      <div class="content">
+        <p>Content 1</p>
+      </div>
+      <div slot="footer" class="footer">
+        <button class="btn btn-danger close-modal">Cancel</button>
+      </div>
+    </my-modal>
+  </body>
+</html>
