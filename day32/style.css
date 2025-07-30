@@ -111,3 +111,8 @@ body {
 .parent {
   position: relative;
 }
+
+/* Border đậm */
+.highlight-border {
+  background-color: #a4a4a4 !important;
+}

@@ -1,17 +1,4 @@
 {
-  "tasks": [
-    {
-      "id": "6eee",
-      "title": "b",
-      "description": "b",
-      "category": "",
-      "priority": "medium",
-      "startTime": "",
-      "endTime": "",
-      "dueDate": "",
-      "color": "blue",
-      "isCompleted": false
-    }
-  ],
+  "tasks": [],
   "todos": []
 }

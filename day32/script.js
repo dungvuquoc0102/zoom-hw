@@ -16,7 +16,7 @@ dragbar.addEventListener("mouseover", () => {
 });
 
 // Thêm sự kiện mouseout
-dragbar.addEventListener("mouseout", () => {
+dragbar.addEventListener("mouseleave", () => {
   if (!isDragging) {
     dragbar.classList.remove("hover");
     dragbar.style.cursor = "default";
@@ -117,6 +117,53 @@ const getIconFromName = (name) => {
   }
 };
 
+const highlightLastBordersOfDirectChildren = (
+  parentUl,
+  deep = 0,
+  level = 0
+) => {
+  // Reset tất cả border cũ
+  if (deep === 0) {
+    $$(".highlight-border").forEach((el) =>
+      el.classList.remove("highlight-border")
+    );
+  }
+
+  const liChildren = Array.from(parentUl.children);
+
+  liChildren.forEach((li) => {
+    if (li.classList.contains("item")) {
+      if (deep === 0) {
+        level = parseInt(li.style.paddingLeft || 0) / 30 - 1;
+      }
+      const borders = li.querySelectorAll("div");
+      borders.forEach((border) => {
+        const left = parseInt(border.style.left) || 0;
+        if (left === level * 30 - 15) {
+          border.classList.add("highlight-border");
+        }
+      });
+    } else {
+      const parentDiv = li.querySelector(".parent");
+      if (deep === 0) {
+        level = parseInt(parentDiv.style.paddingLeft || 0) / 30 - 1;
+      }
+      const borders = parentDiv.querySelectorAll("div");
+      borders.forEach((border) => {
+        const left = parseInt(border.style.left) || 0;
+        if (left === level * 30 - 15) {
+          border.classList.add("highlight-border");
+        }
+      });
+      highlightLastBordersOfDirectChildren(
+        li.querySelector(".list"),
+        (deep = deep + 1),
+        level
+      );
+    }
+  });
+};
+
 const createItem = (name, level) => {
   const li = document.createElement("li");
   li.classList.add("item");
@@ -144,7 +191,16 @@ const createItem = (name, level) => {
     const allParentAndItem = $$(".parent, .item");
     allParentAndItem.forEach((i) => i.classList.remove("selected"));
     li.classList.add("selected");
+
+    const parentLi = li.closest("ul")?.closest("li");
+    if (parentLi) {
+      const directUl = parentLi.querySelector(":scope > ul.list");
+      if (directUl) {
+        highlightLastBordersOfDirectChildren(directUl);
+      }
+    }
   });
+
   return li;
 };
 
@@ -167,15 +223,31 @@ const createParent = (name, level) => {
   div.style.paddingLeft = `${level * 30}px`;
 
   div.addEventListener("click", (e) => {
+    e.stopPropagation();
     const allParentAndItem = $$(".parent, .item");
     allParentAndItem.forEach((i) => i.classList.remove("selected"));
     div.classList.add("selected");
-    const overlay = document.createElement("div");
-    overlay.style.cssText = `
-      position
-    `;
-    div.classList.toggle("expanded");
+
+    const li = div.closest("li");
+    const ul = li.querySelector(":scope > ul.list");
+
+    const isExpanded = div.classList.toggle("expanded");
+
+    if (!isExpanded || !ul || ul.children.length === 0) {
+      // Nếu đang đóng → xử lý như file
+      const parentLi = div.closest("ul")?.closest("li");
+      if (parentLi) {
+        const directUl = parentLi.querySelector(":scope > ul.list");
+        if (directUl) {
+          highlightLastBordersOfDirectChildren(directUl);
+        }
+      }
+    } else {
+      // Đang mở → highlight các con trực tiếp trong folder này
+      highlightLastBordersOfDirectChildren(ul);
+    }
   });
+
   return div;
 };
 
