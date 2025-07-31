@@ -2,8 +2,8 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
+    <title>Folder Tree Web Components</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
@@ -11,16 +11,106 @@
       crossorigin="anonymous"
       referrerpolicy="no-referrer"
     />
-    <link rel="stylesheet" href="style.css" />
+    <style>
+      body,
+      html {
+        margin: 0;
+        padding: 0;
+        height: 100%;
+        font-family: sans-serif;
+      }
+      .container {
+        display: flex;
+        height: 100vh;
+      }
+      .sidebar {
+        width: 300px;
+        background-color: #1e1e1e;
+        color: #fff;
+        overflow: auto;
+        position: relative;
+      }
+      .dragbar {
+        width: 5px;
+        cursor: col-resize;
+        background-color: #666;
+      }
+      .content {
+        flex: 1;
+        padding: 20px;
+      }
+    </style>
   </head>
   <body>
     <div class="container">
       <div class="sidebar">
-        <ul class="root list"></ul>
+        <my-folder-tree></my-folder-tree>
       </div>
-      <div class="content"></div>
       <div class="dragbar"></div>
+      <div class="content">
+        <h2>Welcome to My App</h2>
+      </div>
     </div>
-    <script src="script.js"></script>
+
+    <my-context-menu></my-context-menu>
+
+    <script type="module" src="./script.js"></script>
+    <script>
+      const tree = [
+        {
+          type: "folder",
+          name: "src",
+          children: [
+            {
+              type: "folder",
+              name: "components",
+              children: [
+                { type: "file", name: "Header.js" },
+                { type: "file", name: "Footer.js" },
+              ],
+            },
+            { type: "file", name: "index.js" },
+            {
+              type: "folder",
+              name: "utils",
+              children: [{ type: "file", name: "helpers.js" }],
+            },
+          ],
+        },
+        {
+          type: "folder",
+          name: "public",
+          children: [{ type: "file", name: "index.html" }],
+        },
+        { type: "file", name: "README.md" },
+      ];
+
+      const folderTree = document.querySelector("my-folder-tree");
+      folderTree.setTreeData(tree);
+
+      // Optional: Dragbar behavior
+      const dragbar = document.querySelector(".dragbar");
+      const sidebar = document.querySelector(".sidebar");
+      const content = document.querySelector(".content");
+      let isDragging = false;
+
+      dragbar.addEventListener("mousedown", () => {
+        isDragging = true;
+        document.body.style.cursor = "col-resize";
+      });
+
+      document.addEventListener("mouseup", () => {
+        isDragging = false;
+        document.body.style.cursor = "default";
+      });
+
+      document.addEventListener("mousemove", (e) => {
+        if (!isDragging) return;
+        const x = e.clientX;
+        if (x < 100 || x > window.innerWidth - 100) return;
+        sidebar.style.width = x + "px";
+        content.style.width = `calc(100% - ${x}px)`;
+      });
+    </script>
   </body>
 </html>

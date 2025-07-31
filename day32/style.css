@@ -116,3 +116,40 @@ body {
 .highlight-border {
   background-color: #a4a4a4 !important;
 }
+
+.test {
+  width: 300px;
+  height: 300px;
+  border: 10px solid;
+}
+
+.wrapper-file-context-menu,
+.wrapper-folder-context-menu {
+  position: fixed;
+  inset: 0;
+  display: none;
+}
+
+.file-context-menu,
+.folder-context-menu {
+  background-color: #292927;
+  width: 150px;
+  color: #dedede;
+  padding: 3px;
+  border-radius: 3px;
+  border: 1px solid #525250;
+
+  position: fixed;
+}
+
+.file-context-menu > *,
+.folder-context-menu > * {
+  padding: 3px 5px;
+  border-radius: 3px;
+}
+
+.file-context-menu > *:hover,
+.folder-context-menu > *:hover {
+  background: #1767bd;
+  cursor: pointer;
+}
