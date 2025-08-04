@@ -80,7 +80,7 @@ class MyModal extends HTMLElement {
     return this.shadowRoot.querySelector(selector);
   }
 
-  show() {
+  open() {
     this.removeAttribute("hidden");
     if (!document.body.contains(this)) {
       document.body.appendChild(this);
@@ -96,7 +96,7 @@ class MyModal extends HTMLElement {
     ModalStack.push(this);
   }
 
-  hidden() {
+  close() {
     const wrapper = this.getElementFromShadow(".wrapper");
     wrapper.classList.remove("show");
     setTimeout(() => {
@@ -114,8 +114,8 @@ class MyModal extends HTMLElement {
   setListeners() {
     const wrapper = this.getElementFromShadow(".wrapper");
     wrapper.addEventListener("click", (e) => {
-      if (!e.target.closest(".modal")) {
-        this.hidden();
+      if (!e.composedPath().includes(this.getElementFromShadow(".modal"))) {
+        this.close();
       }
     });
   }
@@ -127,6 +127,6 @@ customElements.define("my-modal", MyModal);
 document.addEventListener("keydown", (e) => {
   if (e.key === "Escape" && ModalStack.length > 0) {
     const topModal = ModalStack.pop();
-    topModal.hidden();
+    topModal.close();
   }
 });

@@ -7,6 +7,8 @@ openModalBtns.forEach((btn) => {
   const modal = document.querySelector(`my-modal#${modalName}`);
   const cancelBtns = modal.querySelectorAll(".close-modal");
 
+  btn.onclick = modal.open.bind(modal);
+
   modal.addEventListener("modal:open", () => {
     Toastify({
       text: "Modal đã được mở",
@@ -25,13 +27,7 @@ openModalBtns.forEach((btn) => {
     }).showToast();
   });
 
-  btn.onclick = () => {
-    modal.show();
-  };
-
-  cancelBtns.forEach((btn) => {
-    btn.onclick = () => {
-      modal.hidden();
-    };
+  cancelBtns.forEach((cancelBtn) => {
+    cancelBtn.onclick = modal.close.bind(modal);
   });
 });
