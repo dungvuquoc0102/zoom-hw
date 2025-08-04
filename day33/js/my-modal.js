@@ -114,7 +114,7 @@ class MyModal extends HTMLElement {
   setListeners() {
     const wrapper = this.getElementFromShadow(".wrapper");
     wrapper.addEventListener("click", (e) => {
-      if (!e.composedPath().includes(this.getElementFromShadow(".modal"))) {
+      if (e.target === wrapper) {
         this.close();
       }
     });
